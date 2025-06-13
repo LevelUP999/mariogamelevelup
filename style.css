@@ -118,7 +118,7 @@ body {
     position: absolute;
     bottom: 0;
     width: 150px;
-    animation: pipemove 2s linear infinite;
+    animation: pipemove 1.3s linear infinite;
 }
 
 #gameover {
