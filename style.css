@@ -52,9 +52,9 @@ body {
 /* Mario (jogador) */
 .player {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 50px;
-  width: 80px;
+  width: 130px;
   z-index: 2;
   transition: transform 0.2s ease;
 }
@@ -62,7 +62,7 @@ body {
 /* Obstáculo (cano) */
 .pipe {
   position: absolute;
-  bottom: 10px;
+  bottom: 0;
   right: -100px;
   width: 80px;
   animation: pipeMove 2s linear infinite;
@@ -105,10 +105,10 @@ body {
 
 /* Animações */
 @keyframes jumpAnimation {
-  0% { bottom: 10px; }
-  40% { bottom: 120px; }
-  60% { bottom: 120px; }
-  100% { bottom: 10px; }
+  0% { bottom: 0; }
+  40% { bottom: 150px; }
+  60% { bottom: 150px; }
+  100% { bottom: 0; }
 }
 
 @keyframes pipeMove {
