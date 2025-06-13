@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: 'Segoe UI', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    height: 100vh;
+    gap: 10px;
+    align-items: center;
+    overflow: hidden;
+}
+
+.screen {
+    width: 90%;
+    height: 85%;
+    box-shadow: 0 0 3px 3px #1a1a1a30;
+    border: 2px solid #1a1a1a30;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(#8a2be2, #0cf, #fff);
+    border-bottom: 10px solid #22cc00;
+}
+
+.tutorial {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: bold;
+
+    & div {
+        border-bottom: 3px solid #1a1a1a30;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        transition: .2s;
+    }
+}
+
+/* mecânica do game plau :3 */
+
+.player {
+    position: absolute;
+    bottom: 0;
+    left: 300px;
+    border-radius: 30%;
+}
+
+.backgound {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    animation: backgoundmove 3s linear infinite;
+}
+
+@keyframes jump {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    30%, 70% {
+        transform: translateY(-300px);
+    }
+}
+
+@keyframes pipemove {
+    from {
+        right: -200px;
+    }
+    to {
+        right: 100%;
+    }
+}
+
+@keyframes death {
+    0%, 30% {
+        transform: translateY(0);
+    }
+    35% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(+500px);
+    }
+}
+
+@keyframes backgoundmove {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 100%;
+    }
+}
+
+@keyframes open {
+    from {
+        opacity: 0;
+    }
+
+    to{
+        opacity: 100;
+    }
+}
+
+.pipe {
+    position: absolute;
+    bottom: 0;
+    width: 150px;
+    animation: pipemove 2s linear infinite;
+}
+
+#gameover {
+    animation: open .5s ease-in;
+}
+
