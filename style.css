@@ -68,7 +68,7 @@ body {
     0%, 100% {
         transform: translateY(0);
     }
-    30%, 70% {
+    15%, 85% {
         transform: translateY(-300px);
     }
 }
