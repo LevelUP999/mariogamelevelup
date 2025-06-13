@@ -1,127 +1,122 @@
-*{
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-family: 'Segoe UI', sans-serif;
-    box-sizing: border-box;
-    outline: none;
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    padding: 50px;
-    height: 100vh;
-    gap: 10px;
-    align-items: center;
-    overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  height: 100vh;
+  background-color: #fff;
+  overflow: hidden;
+  gap: 10px;
+}
+
+.label-range {
+  font-weight: bold;
+}
+
+.range-input {
+  width: 90%;
 }
 
 .screen {
-    width: 90%;
-    height: 85%;
-    box-shadow: 0 0 3px 3px #1a1a1a30;
-    border: 2px solid #1a1a1a30;
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(#8a2be2, #0cf, #fff);
-    border-bottom: 10px solid #22cc00;
+  width: 90%;
+  height: 85%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #1a1a1a30;
+  border-radius: 10px;
+  border-bottom: 10px solid #22cc00;
+  background: linear-gradient(to top, #8a2be2, #0cf, #fff);
+  box-shadow: 0 0 6px 3px #1a1a1a30;
 }
 
-.tutorial {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-weight: bold;
-
-    & div {
-        border-bottom: 3px solid #1a1a1a30;
-        height: 90%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 10px;
-        transition: .2s;
-    }
+/* Fundo com nuvens animadas */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  animation: cloudsMove 60s linear infinite;
+  z-index: 0;
+  object-fit: cover;
 }
 
-/* mecânica do game plau :3 */
-
+/* Mario (jogador) */
 .player {
-    position: absolute;
-    bottom: 0;
-    left: 300px;
-    border-radius: 30%;
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+  width: 80px;
+  z-index: 2;
+  transition: transform 0.2s ease;
 }
 
-.backgound {
-    width: 50%;
-    height: 50%;
-    position: absolute;
-    animation: backgoundmove 3s linear infinite;
-}
-
-@keyframes jump {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    15%, 85% {
-        transform: translateY(-300px);
-    }
-}
-
-@keyframes pipemove {
-    from {
-        right: -200px;
-    }
-    to {
-        right: 100%;
-    }
-}
-
-@keyframes death {
-    0%, 30% {
-        transform: translateY(0);
-    }
-    35% {
-        transform: translateY(-5px);
-    }
-
-    100% {
-        transform: translateY(+500px);
-    }
-}
-
-@keyframes backgoundmove {
-    from {
-        right: -100%;
-    }
-    to {
-        right: 100%;
-    }
-}
-
-@keyframes open {
-    from {
-        opacity: 0;
-    }
-
-    to{
-        opacity: 100;
-    }
-}
-
+/* Obstáculo (cano) */
 .pipe {
-    position: absolute;
-    bottom: 0;
-    width: 150px;
-    animation: pipemove 1.6s linear infinite;
+  position: absolute;
+  bottom: 10px;
+  right: -100px;
+  width: 80px;
+  animation: pipeMove 2s linear infinite;
+  z-index: 1;
 }
 
-#gameover {
-    animation: open .5s ease-in;
+/* Tela de Game Over */
+.game-over {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  display: none;
+  z-index: 10;
 }
 
+/* Tutorial */
+.tutorial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: bold;
+  width: 100%;
+}
+
+#tecla {
+  border: 2px solid #1a1a1a30;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background-color: transparent;
+  box-shadow: 0 3px 3px #1a1a1a10;
+}
+
+/* Pulo */
+.jump {
+  animation: jumpAnimation 600ms ease-out;
+}
+
+/* Animações */
+@keyframes jumpAnimation {
+  0% { bottom: 10px; }
+  40% { bottom: 120px; }
+  60% { bottom: 120px; }
+  100% { bottom: 10px; }
+}
+
+@keyframes pipeMove {
+  0% { right: -100px; }
+  100% { right: 100%; }
+}
+
+@keyframes cloudsMove {
+  0% { left: 0; }
+  100% { left: -100%; }
+}
