@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mario Bross game</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mario Bross Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <label style="font-weight: bold;" for="width-screen"> Tamanho da tela</label>
-    <input id="width-screen" style="width: 90%;" type="range" min="30" max="100">
+    
+  <label for="width-screen" class="label-range">Tamanho da tela</label>
+  <input id="width-screen" class="range-input" type="range" min="30" max="100"/>
 
-    <div class="screen">
-        <img class="backgound" src="./assets/clouds.png">
-        <img class="player" src="./assets/mario.gif">
-        <img class="pipe" src="./assets/pipe.png">
-        <img id="gameover" src="https://images.vexels.com/content/231980/preview/game-over-retro-lettering-2a17c1.png" style="position: absolute; top: 10%; right: 35%; display: none;">
-    </div>
+  <main class="screen">
+    <img class="background" src="./assets/clouds.png" alt="Nuvens animadas no céu" />
+    <img class="player" src="./assets/mario.gif" alt="Jogador Mario" />
+    <img class="pipe" src="./assets/pipe.png" alt="Obstáculo" />
+    <img id="gameover" src="https://images.vexels.com/content/231980/preview/game-over-retro-lettering-2a17c1.png" alt="Game Over" class="game-over" />
+  </main>
 
-    <div class="tutorial">
-        <div id="tecla">
-            <svg fill="#000000" width="70px" height="70px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21,9a1,1,0,0,0-1,1v3H4V10a1,1,0,0,0-2,0v4a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V10A1,1,0,0,0,21,9Z"/></svg>
-            <span>Pular</span>
-        </div>
-    </div>
+  <div class="tutorial">
+    <div>Pressione <kbd>ESPAÇO</kbd> para pular</div>
+    <div id="tecla">⬆</div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
-<script src="./script.js" defer></script>
+    
 </html>
