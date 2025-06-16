@@ -1,69 +1,92 @@
-const teclaTutorial = document.getElementById("tecla");
-const player = document.querySelector(".player");
-const pipe = document.querySelector(".pipe");
-const gameOverImg = document.getElementById("gameover");
-const rangeInput = document.getElementById("width-screen");
+const spaceTutorial = document.getElementById("tecla")
+const player = document.querySelector(".player")
+let Jumping = false
+const obstacle = document.querySelector(".pipe")
+let playerdeath = false
 
-let isJumping = false;
-let isGameOver = false;
-
-document.addEventListener("keydown", (event) => {
-  if (event.code === "Space" && !isGameOver && !isJumping) {
-    jump();
-    teclaTutorial.style.background = "#1a1a1a30";
-    teclaTutorial.style.boxShadow = "0 3px 3px 3px #1a1a1a10";
-  }
+document.addEventListener("keydown", function (event) {
+    // Verifica se a tecla pressionada foi "Espaço"
+    if (event.code === "Space") {
+        event.preventDefault(); // Evita scroll automático
+        spaceTutorial.style.background = `#1a1a1a30`
+        spaceTutorial.style.boxShadow = `0 3px 3px 3px #1a1a1a10`
+        spaceTutorial.style.borderRadius = `10px`
+    }
 });
 
-document.addEventListener("keyup", () => {
-  teclaTutorial.style.background = "transparent";
-  teclaTutorial.style.boxShadow = "0 3px 3px 3px transparent";
+document.addEventListener("keyup", function (event) {
+    spaceTutorial.style.background = `transparent`
+    if (event.code === "Space"&& playerdeath == false) {
+        spaceTutorial.style.boxShadow = `0 3px 3px 3px transparent`
+        spaceTutorial.style.borderRadius = `0`
+        if (!Jumping) {
+            jumpPlayer()
+        }
+    }
 });
 
-function jump() {
-  if (isJumping || isGameOver) return;
+setInterval(updateWidthGame, 1)
 
-  isJumping = true;
-  player.classList.add("jump");
-
-  setTimeout(() => {
-    player.classList.remove("jump");
-    isJumping = false;
-  }, 600);
+function updateWidthGame () {
+    document.querySelector(".screen").style.width = `${document.getElementById("width-screen").value}%`
 }
 
+function jumpPlayer() {
+    Jumping = true;
+    player.style.animation = `jump 1.2s`;
+
+    setTimeout(() => {
+        player.style.animation = ``;
+        Jumping = false;
+    }, 1200);
+}
+
+
+setInterval(checkCollision, 1)
 function checkCollision() {
-  if (isGameOver) return;
+    if (!playerdeath) {
+        const playerRect = player.getBoundingClientRect();
+        const obstacleRect = obstacle.getBoundingClientRect();
 
-  const playerRect = player.getBoundingClientRect();
-  const pipeRect = pipe.getBoundingClientRect();
+        const isColliding = !(
+            playerRect.top > obstacleRect.bottom ||
+            playerRect.bottom < obstacleRect.top ||
+            playerRect.right < obstacleRect.left ||
+            playerRect.left > obstacleRect.right
+        );
 
-  const horizontalCollision = pipeRect.left < playerRect.right - 20 && pipeRect.right > playerRect.left + 20;
-  const verticalCollision = playerRect.bottom > pipeRect.top + 10;
-
-  if (horizontalCollision && verticalCollision) {
-    gameOver();
-  }
-
-  requestAnimationFrame(checkCollision);
+        if (isColliding) {
+            playerdeath = true
+            gameOver()
+        }
+    }
 }
 
 function gameOver() {
-  isGameOver = true;
+    const screenRect = document.querySelector(".screen").getBoundingClientRect();
+    const playerRect = player.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
 
-  pipe.style.animation = "none";
-  pipe.style.right = `${pipe.getBoundingClientRect().right}px`;
+    // Posição relativa ao container .screen
+    const playerLeft = playerRect.left - screenRect.left;
+    const playerTop = playerRect.top - screenRect.top;
 
-  player.src = "./assets/game-over.png";
-  player.style.width = "120px";
-  player.style.bottom = "10px";
-  player.style.left = `${player.getBoundingClientRect().left}px`;
+    const obstacleLeft = obstacleRect.left - screenRect.left;
+    const obstacleTop = obstacleRect.top - screenRect.top;
 
-  gameOverImg.style.display = "block";
+    // Parar animações e fixar posição do player
+    player.src = `./assets/game-over.png`;
+    player.style.width = `120px`;
+    
+    player.style.transform = "none";
+    player.style.left = `${playerLeft}px`;
+    player.style.animation = "death 2s ease-in-out";
+    
+    // Parar animação e fixar obstáculo
+    obstacle.style.animation = "none";
+    obstacle.style.left = `${obstacleLeft}px`;
+    obstacle.style.top = `${obstacleTop}px`;
+    
+    document.getElementById("gameover").style.display = `block`
+    setInterval(player.style.transform = "translateX(+3000px)", 3000)
 }
-
-rangeInput.addEventListener("input", (e) => {
-  const screen = document.querySelector(".screen");
-  screen.style.width = `${e.target.value}%`;
-});
-requestAnimationFrame(checkCollision);
